@@ -20,9 +20,27 @@ public class WorldGenerator {
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
         //call methods to build 2D array
-        randomize();
-
+        //randomize();
+        iniWater();
+        border();
+        generateIslands();
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
+    }
+
+    public void generateIslands(){
+        int pX = MathUtils.random(0,worldIntMap.length-1);
+        int pY = MathUtils.random(0,worldIntMap[0].length-1);
+
+        worldIntMap[pX][pY] = 15;
+    }
+
+    public void iniWater(){
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++){
+                worldIntMap[r][c] = 19;
+            }
+
+        }
     }
 
     public String getWorld3DArrayToString() {
@@ -36,6 +54,17 @@ public class WorldGenerator {
         }
 
         return returnString;
+    }
+
+    public void border() {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++){
+                if(c < 2 || c > worldIntMap[r].length - 3 || r < 2 || r > worldIntMap.length - 3) {
+                    worldIntMap[r][c] = 14;
+                }
+            }
+
+        }
     }
 
     public void randomize() {
