@@ -10,7 +10,7 @@ import com.bmhs.gametitle.gfx.utils.TileHandler;
 public class WorldGenerator {
 
     private int worldMapRows, worldMapColumns;
-
+    private int temp;
     private int[][] worldIntMap;
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
