@@ -41,9 +41,7 @@ public class WorldGenerator {
     }
 
     public void island(int iR, int iC, int strength){
-        if(strength < 5){
-            recolor(iR,iC);
-        } else {
+        if(strength > 5){
             recolor(iR,iC);
         }
     }
