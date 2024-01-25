@@ -63,11 +63,12 @@ public class WorldGenerator {
     }
 
     public void recolor(int iR, int iC){
+
         if(iR > 1 && iR < 99 && iC > 1 && iC < 199) {
-            if (/*worldIntMap[iR + 1][iC] < worldIntMap[iR][iC] &&*/ worldIntMap[iR + 1][iC] == waterColor) {
+            if (worldIntMap[iR + 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR + 1][iC] == waterColor) {
                 worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] - 1;
                 island(iR + 1, iC, strength - 1);
-            }/*
+            }
             if (worldIntMap[iR - 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR - 1][iC] == waterColor) {
                 worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] - 1;
                 island(iR - 1, iC, strength - 1);
@@ -79,12 +80,15 @@ public class WorldGenerator {
             if (worldIntMap[iR][iC - 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC - 1] == waterColor) {
                 worldIntMap[iR][iC - 1] = worldIntMap[iR][iC] - 1;
                 island(iR, iC - 1, strength - 1);
-            }*/
+            }
+
         }
+
+
     }
 
     public void iniWater(){
-        waterColor = 19;
+        waterColor = 0;
 
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++){
