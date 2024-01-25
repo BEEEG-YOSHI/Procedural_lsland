@@ -12,6 +12,9 @@ public class WorldGenerator {
     private int worldMapRows, worldMapColumns;
     private int temp;
     private int[][] worldIntMap;
+    private int waterColor;
+    private  int strength;
+
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
@@ -28,16 +31,48 @@ public class WorldGenerator {
     }
 
     public void generateIslands(){
-        int pX = MathUtils.random(0,worldIntMap.length-1);
-        int pY = MathUtils.random(0,worldIntMap[0].length-1);
+        int iR = MathUtils.random(3,96);
+        int iC = MathUtils.random(3,196);
+        strength = 9;
+        //int strength = MathUtils.random();
+        worldIntMap[iR][iC] = strength;
+        island(iR,iC,strength);
 
-        worldIntMap[pX][pY] = 15;
+    }
+
+    public void island(int iR, int iC, int strength){
+        if(strength < 5){
+            recolor(iR,iC);
+        } else {
+            recolor(iR,iC);
+        }
+    }
+
+    public void recolor(int iR, int iC){
+        if(worldIntMap[iR+1][iC] > worldIntMap[iR][iC] || worldIntMap[iR+1][iC] == waterColor){
+            worldIntMap[iR+1][iC] = worldIntMap[iR][iC]-1;
+            island(iR+1,iC,strength-1);
+        }
+        if(worldIntMap[iR-1][iC] > worldIntMap[iR][iC] || worldIntMap[iR-1][iC] == waterColor){
+            worldIntMap[iR-1][iC] = worldIntMap[iR][iC]-1;
+            island(iR-1,iC,strength-1);
+        }
+        if(worldIntMap[iR][iC+1] > worldIntMap[iR][iC] || worldIntMap[iR][iC+1] == waterColor){
+            worldIntMap[iR][iC+1] = worldIntMap[iR][iC]-1;
+            island(iR,iC+1,strength-1);
+        }
+        if(worldIntMap[iR][iC-1] > worldIntMap[iR][iC] || worldIntMap[iR][iC-1] == waterColor){
+            worldIntMap[iR][iC-1] = worldIntMap[iR][iC]-1;
+            island(iR,iC-1,strength-1);
+        }
     }
 
     public void iniWater(){
+        waterColor = 19;
+
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++){
-                worldIntMap[r][c] = 19;
+                worldIntMap[r][c] = waterColor;
             }
 
         }
