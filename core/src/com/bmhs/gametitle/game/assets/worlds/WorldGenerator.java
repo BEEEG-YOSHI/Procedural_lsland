@@ -15,7 +15,8 @@ public class WorldGenerator {
     private int worldMapRows, worldMapColumns;
     private int[][] worldIntMap;
     private int waterColor;
-    private  int strength;
+    private int strength;
+    private int defaultColor;
 
 
     public WorldGenerator (int worldMapRows, int worldMapColumns) {
@@ -24,24 +25,9 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
-        /*Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
-        System.out.println(mapSeed.y + " "+ mapSeed.x);
-
-        worldIntMap[(int)mapSeed.x][(int)mapSeed.y] = 4;
-
-        for(int r = 0;r < worldIntMap.length; r++){
-            for(int c = 0; c < worldIntMap[r].length; c++){
-                Vector2 tempVector = new Vector2(r,c);
-                if(tempVector.dst(mapSeed) < 10){
-                    worldIntMap[r][c] = 2;
-                }
-            }
-        }*/
-
-        //call methods to build 2D array
-        //randomize();
-        iniWater();
+        iniWorld();
         generateIslands();
+        iniWater();
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
         generateWorldTextFile();
     }
@@ -67,19 +53,35 @@ public class WorldGenerator {
         if(iR > 1 && iR < 99 && iC > 1 && iC < 199) {
             if (worldIntMap[iR + 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR + 1][iC] == waterColor) {
                 worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] - 1;
-                island(iR + 1, iC, strength - 1);
+                if(MathUtils.random(1,2) == 2){
+                    island(iR + 1, iC, strength);
+                } else {
+                    island(iR + 1, iC, strength - 1);
+                }
             }
             if (worldIntMap[iR - 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR - 1][iC] == waterColor) {
                 worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] - 1;
-                island(iR - 1, iC, strength - 1);
+                if(MathUtils.random(1,2) == 2){
+                    island(iR - 1, iC, strength);
+                } else {
+                    island(iR - 1, iC, strength - 1);
+                }
             }
             if (worldIntMap[iR][iC + 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC + 1] == waterColor) {
                 worldIntMap[iR][iC + 1] = worldIntMap[iR][iC] - 1;
-                island(iR, iC + 1, strength - 1);
+                if(MathUtils.random(1,2) == 2){
+                    island(iR, iC + 1, strength);
+                } else {
+                    island(iR, iC + 1, strength - 1);
+                }
             }
             if (worldIntMap[iR][iC - 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC - 1] == waterColor) {
                 worldIntMap[iR][iC - 1] = worldIntMap[iR][iC] - 1;
-                island(iR, iC - 1, strength - 1);
+                if(MathUtils.random(1,2) == 2){
+                    island(iR, iC - 1, strength);
+                } else {
+                    island(iR, iC - 1, strength - 1);
+                }
             }
 
         }
@@ -87,16 +89,26 @@ public class WorldGenerator {
 
     }
 
-    public void iniWater(){
-        waterColor = 0;
+    public void iniWorld(){
+        defaultColor = 0;
 
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++){
-                worldIntMap[r][c] = waterColor;
+                worldIntMap[r][c] = defaultColor;
             }
-
         }
     }
+
+    public void iniWater(){
+        waterColor = 19;
+
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++){
+                if (worldIntMap[r][c] == defaultColor){
+                    worldIntMap[r][c] = waterColor;
+            }
+        }
+    } 
 
     public String getWorld3DArrayToString() {
         String returnString = "";
