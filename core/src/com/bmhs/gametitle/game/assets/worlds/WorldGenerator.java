@@ -33,13 +33,15 @@ public class WorldGenerator {
     }
 
     public void generateIslands(){
-        int iR = MathUtils.random(3,worldIntMap.length - 4);
-        int iC = MathUtils.random(3,worldIntMap[0].length - 4);
         strength = 9;
-        //int strength = MathUtils.random();
-        worldIntMap[iR][iC] = strength;
-        island(iR,iC,strength);
-
+        //islandNumber = MathUtils.random(3,6);
+        islandNumber = 1;
+        for(int i = 0; i < islandNumber; i++){
+            int iR = MathUtils.random(3,worldIntMap.length - 4);
+            int iC = MathUtils.random(3,worldIntMap[0].length - 4);
+            worldIntMap[iR][iC] = strength;
+            island(iR,iC,strength);
+        }
     }
 
     public void island(int iR, int iC, int strength){
@@ -49,36 +51,45 @@ public class WorldGenerator {
     }
 
     public void recolor(int iR, int iC){
-
+        double strChance = MathUtils.random(1);
+        
         if(iR > 1 && iR < 99 && iC > 1 && iC < 199) {
             if (worldIntMap[iR + 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR + 1][iC] == waterColor) {
                 worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] - 1;
-                if(MathUtils.random(1,2) == 2){
+                if(strChance <= 0.5){
                     island(iR + 1, iC, strength);
+                } else if(strChance >= 0.9){
+                    island(iR + 1, iC, strength + 1);
                 } else {
                     island(iR + 1, iC, strength - 1);
                 }
             }
             if (worldIntMap[iR - 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR - 1][iC] == waterColor) {
                 worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] - 1;
-                if(MathUtils.random(1,2) == 2){
+                if(strChance <= 0.5){
                     island(iR - 1, iC, strength);
+                } else if(strChance >= 0.9){
+                    island(iR - 1, iC, strength + 1);
                 } else {
                     island(iR - 1, iC, strength - 1);
                 }
             }
             if (worldIntMap[iR][iC + 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC + 1] == waterColor) {
                 worldIntMap[iR][iC + 1] = worldIntMap[iR][iC] - 1;
-                if(MathUtils.random(1,2) == 2){
+                if(strChance <= 0.5){
                     island(iR, iC + 1, strength);
+                } else if(strChance >= 0.9){
+                    island(iR, iC + 1, strength + 1);
                 } else {
                     island(iR, iC + 1, strength - 1);
                 }
             }
             if (worldIntMap[iR][iC - 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC - 1] == waterColor) {
                 worldIntMap[iR][iC - 1] = worldIntMap[iR][iC] - 1;
-                if(MathUtils.random(1,2) == 2){
+                if(strChance <= 0.5){
                     island(iR, iC - 1, strength);
+                } else if(strChance >= 0.9){
+                    island(iR, iC - 1, strength + 1);
                 } else {
                     island(iR, iC - 1, strength - 1);
                 }
