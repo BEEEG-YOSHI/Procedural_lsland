@@ -14,7 +14,8 @@ public class WorldGenerator {
 
     private int worldMapRows, worldMapColumns;
     private int[][] worldIntMap;
-    private int waterColor;
+    private int waterColor1;
+    private int waterColor2;
     private int strength;
     private static int seed = 11;
     private int defaultColor;
@@ -57,53 +58,56 @@ public class WorldGenerator {
         System.out.print(rand+" ");
 
         if (iR > 1 && iR < 99 && iC > 1 && iC < 199) {
-            if (worldIntMap[iR + 1][iC] < worldIntMap[iR][iC]) {
-                worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] - 1;
-
-                if (rand <= 0.5) {
-                    System.out.println("same " + strength);
+            if (worldIntMap[iR + 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
+                if (rand <= 0.4) {
+                    worldIntMap[iR + 1][iC] = worldIntMap[iR][iC];
                     island(iR + 1, iC, strength);
-                } else if (rand >= 0.8 || strength != 11) {
-                    System.out.println("big " + (strength+1));
+                } else if (rand >= 0.9 && strength != 11) {
+                    worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] + 1;
                     island(iR + 1, iC, strength + 1);
                 } else {
-                    System.out.println("small " + (strength-1));
+                    worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] - 1;
                     island(iR + 1, iC, strength - 1);
                 }
             }
             /*
-            if (worldIntMap[iR - 1][iC] < worldIntMap[iR][iC]) {
-                worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] - 1;
-                if (rand <= 0.5) {
+            if (worldIntMap[iR - 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
+                if (rand <= 0.3) {
+                    worldIntMap[iR - 1][iC] = worldIntMap[iR][iC];
                     island(iR - 1, iC, strength);
-                } else if (rand >= 0.8 || strength != 11) {
+                } else if (rand >= 0.9 && strength != 11) {
+                    worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] + 1;
                     island(iR - 1, iC, strength + 1);
                 } else {
+                    worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] - 1;
                     island(iR - 1, iC, strength - 1);
                 }
             }
-            if (worldIntMap[iR][iC + 1] < worldIntMap[iR][iC]) {
-                worldIntMap[iR][iC + 1] = worldIntMap[iR][iC] - 1;
-                if (rand <= 0.5) {
+            if (worldIntMap[iR][iC + 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
+                if (rand <= 0.3) {
+                    worldIntMap[iR][iC + 1] = worldIntMap[iR][iC];
                     island(iR, iC + 1, strength);
-                } else if (rand >= 0.8 || strength != 11) {
+                } else if (rand >= 0.9 && strength != 11) {
+                    worldIntMap[iR][iC + 1] = worldIntMap[iR][iC] + 1;
                     island(iR, iC + 1, strength + 1);
                 } else {
+                    worldIntMap[iR][iC + 1] = worldIntMap[iR][iC] - 1;
                     island(iR, iC + 1, strength - 1);
                 }
             }
-            if (worldIntMap[iR][iC - 1] < worldIntMap[iR][iC]) {
-                worldIntMap[iR][iC - 1] = worldIntMap[iR][iC] - 1;
-                if (rand <= 0.5) {
+            if (worldIntMap[iR][iC - 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
+                if (rand <= 0.3) {
+                    worldIntMap[iR][iC - 1] = worldIntMap[iR][iC];
                     island(iR, iC - 1, strength);
-                } else if (rand >= 0.9 || strength != 11) {
+                } else if (rand >= 0.9 && strength != 11) {
+                    worldIntMap[iR][iC - 1] = worldIntMap[iR][iC] + 1;
                     island(iR, iC - 1, strength + 1);
                 } else {
+                    worldIntMap[iR][iC - 1] = worldIntMap[iR][iC] - 1;
                     island(iR, iC - 1, strength - 1);
                 }
-            }
+            } */
 
-             */
 
         }
 
@@ -121,14 +125,19 @@ public class WorldGenerator {
     }
 
     public void iniWater() {
-        waterColor = 19;
+        waterColor1 = 19;
+        waterColor2 = 20;
         seed = 11;
         int minStr = 7;
 
         for (int r = 0; r < worldIntMap.length; r++) {
             for (int c = 0; c < worldIntMap[r].length; c++) {
                 if (worldIntMap[r][c] == defaultColor || worldIntMap[r][c] < minStr || worldIntMap[r][c] > seed) {
-                    worldIntMap[r][c] = waterColor;
+                    if (Math.random() > 0.5) {
+                        worldIntMap[r][c] = waterColor1;
+                    } else {
+                        worldIntMap[r][c] = waterColor2;
+                    }
                 }
             }
         }
