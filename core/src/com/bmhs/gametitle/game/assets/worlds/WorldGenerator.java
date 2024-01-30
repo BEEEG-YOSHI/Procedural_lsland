@@ -55,34 +55,30 @@ public class WorldGenerator {
 
     public void recolor(int iR, int iC) {
         double rand = Math.random();
-        System.out.print(rand+" ");
 
         if (iR > 1 && iR < 99 && iC > 1 && iC < 199) {
             if (worldIntMap[iR + 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
                 if (rand <= 0.4) {
                     worldIntMap[iR + 1][iC] = worldIntMap[iR][iC];
-                    island(iR + 1, iC, strength);
                 } else if (rand >= 0.9 && strength != 11) {
                     worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] + 1;
-                    island(iR + 1, iC, strength + 1);
                 } else {
                     worldIntMap[iR + 1][iC] = worldIntMap[iR][iC] - 1;
-                    island(iR + 1, iC, strength - 1);
                 }
             }
-            /*
+
             if (worldIntMap[iR - 1][iC] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
-                if (rand <= 0.3) {
+                if (rand <= 0.4) {
                     worldIntMap[iR - 1][iC] = worldIntMap[iR][iC];
-                    island(iR - 1, iC, strength);
                 } else if (rand >= 0.9 && strength != 11) {
                     worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] + 1;
-                    island(iR - 1, iC, strength + 1);
                 } else {
                     worldIntMap[iR - 1][iC] = worldIntMap[iR][iC] - 1;
-                    island(iR - 1, iC, strength - 1);
                 }
             }
+            island(iR - 1, iC, strength);
+            island(iR + 1, iC, strength);
+            /*
             if (worldIntMap[iR][iC + 1] < worldIntMap[iR][iC] && worldIntMap[iR][iC] >= 8) {
                 if (rand <= 0.3) {
                     worldIntMap[iR][iC + 1] = worldIntMap[iR][iC];
