@@ -86,6 +86,13 @@ public class WorldGenTestScreen implements Screen {
                 }
             }
 
+        for (int r = 0; r < world.getWorldMapRows(); r++) {
+            for (int c = 0; c < world.getWorldMapColumns(); c++) {
+                game.batch.draw(world.getEnvironmentTile(r, c).getTexture(), c * Tile.ON_SCREEN_DEFAULT_WIDTH, r * Tile.ON_SCREEN_DEFAULT_HEIGHT);
+            }
+        }
+
+
 
         game.batch.end();
 

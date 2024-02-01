@@ -14,6 +14,7 @@ public class WorldGenerator {
 
     private int worldMapRows, worldMapColumns;
     private int[][] worldIntMap;
+    private int[][] worldSpriteMap;
     private int waterColor1;
     private int waterColor2;
     private int strength;
@@ -27,10 +28,12 @@ public class WorldGenerator {
         this.worldMapColumns = worldMapColumns;
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
+        worldSpriteMap = new int[worldMapRows][worldMapColumns];
 
         iniWorld();
         generateIslands();
         iniWater();
+        generateSprites();
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
         generateWorldTextFile();
     }
@@ -46,21 +49,19 @@ public class WorldGenerator {
         }
     }
 
-    public void generateFlora(){
-        waterColor1 = 19;
-        waterColor2 = 20;
-        seed = 11;
-        int minStr = 7;
+    public void generateSprites(){
+        int dirtColor = 8;
+        int grassColor = 9;
 
         for (int r = 0; r < worldIntMap.length; r++) {
-            for (int c = 0; c < worldIntMap[r].length; c++) {
-                if (worldIntMap[r][c] == defaultColor || worldIntMap[r][c] < minStr || worldIntMap[r][c] > seed) {
-                    if (Math.random() > 0.5) {
-                        worldIntMap[r][c] = waterColor1;
-                    } else {
-                        worldIntMap[r][c] = waterColor2;
-                    }
+            for (int c = 0; c < worldIntMap[r].length; c++) {if (worldIntMap[r][c] == dirtColor) {
+                if (worldIntMap[r][c] == dirtColor && Math.random() > 0.8) {
+                    worldSpriteMap[r][c] = 26;
                 }
+                if (worldIntMap[r][c] == grassColor && Math.random() > 0.9) {
+                    worldSpriteMap[r][c] = 22;
+                }
+            }
             }
         }
     }
@@ -191,6 +192,16 @@ public class WorldGenerator {
             }
             return worldTileMap;
         }
+
+    public WorldTile[][] generateEnvironment() {
+        WorldTile[][] worldTileMap = new WorldTile[worldSpriteMap.length][worldSpriteMap[0].length];
+        for (int r = 0; r < worldSpriteMap.length; r++) {
+            for (int c = 0; c < worldSpriteMap[r].length; c++) {
+                worldTileMap[r][c] = TileHandler.getTileHandler().getWorldTileArray().get(worldSpriteMap[r][c]);
+            }
+        }
+        return worldTileMap;
+    }
 
     }
 

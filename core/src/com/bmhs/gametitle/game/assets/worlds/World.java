@@ -8,7 +8,7 @@ import com.bmhs.gametitle.gfx.assets.tiles.statictiles.WorldTile;
 
 public class World {
 
-    private WorldTile[][] worldTileMap;
+    private WorldTile[][] worldTileMap, worldSpriteMap;
     private int worldMapRows, worldMapColumns;
 
     private WorldGenerator worldGenerator;
@@ -25,6 +25,7 @@ public class World {
         worldGenerator = new WorldGenerator(worldMapRows, worldMapColumns);
 
         worldTileMap = worldGenerator.generateWorld();
+        worldSpriteMap = worldGenerator.generateEnvironment();
 
         Gdx.app.error("World", "World(int,int)");
     }
@@ -32,10 +33,14 @@ public class World {
     public WorldTile getWorldTile(int r, int c) {
         return worldTileMap[r][c];
     }
+    public WorldTile getEnvironmentTile(int r, int c) {
+        return worldSpriteMap[r][c];
+    }
 
     public TextureRegion getWorldTileTextureRegion(int r, int c) {
         return worldTileMap[r][c].getTexture();
     }
+
 
     public int getWorldMapRows() {
         return worldMapRows;

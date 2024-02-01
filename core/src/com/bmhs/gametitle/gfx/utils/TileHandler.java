@@ -30,7 +30,7 @@ public class TileHandler {
         worldTileArray.add(new WorldTile(new TextureRegion(new Texture(primaryColorSheetPath), 0, 0, spriteOnSheetWidth, spriteOnSheetHeight), 0, "transparent"));
 
         createWorldTiles(primaryColorSheetPath, "primary color", worldTileArray);
-
+        createWorldTiles("floraSpriteSheet.png", "flora", worldTileArray);
     }
 
     public static TileHandler getTileHandler() {
