@@ -52,19 +52,25 @@ public class WorldGenerator {
     public void generateSprites(){
         int dirtColor = 8;
         int grassColor = 9;
+        int grassColor2 = 10;
 
         for (int r = 0; r < worldIntMap.length; r++) {
-            for (int c = 0; c < worldIntMap[r].length; c++) {if (worldIntMap[r][c] == dirtColor) {
+            for (int c = 0; c < worldIntMap[r].length; c++)
                 if (worldIntMap[r][c] == dirtColor && Math.random() > 0.8) {
                     worldSpriteMap[r][c] = 26;
                 }
-                if (worldIntMap[r][c] == grassColor && Math.random() > 0.9) {
+                else if (worldIntMap[r][c] == grassColor && Math.random() > 0.9) {
                     worldSpriteMap[r][c] = 22;
                 }
-            }
+                else if (worldIntMap[r][c] == grassColor && Math.random() > 0.9) {
+                    worldSpriteMap[r][c] = 23;
+                }
+                else if (worldIntMap[r][c] == grassColor2 && Math.random() > 0.9) {
+                    worldSpriteMap[r][c] = 24;
+                }
             }
         }
-    }
+
 
     public void island(int iR, int iC, int str) {
         this.strength = str;

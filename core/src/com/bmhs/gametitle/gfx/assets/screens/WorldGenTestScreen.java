@@ -92,8 +92,6 @@ public class WorldGenTestScreen implements Screen {
             }
         }
 
-
-
         game.batch.end();
 
         stage.act();
