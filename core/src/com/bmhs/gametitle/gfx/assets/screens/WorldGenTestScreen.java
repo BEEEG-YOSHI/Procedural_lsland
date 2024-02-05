@@ -15,9 +15,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+import com.bmhs.gametitle.game.assets.characters.PlayerCharacter;
 import com.bmhs.gametitle.game.utils.GameHandler;
 import com.bmhs.gametitle.game.assets.worlds.World;
 import com.bmhs.gametitle.gfx.assets.tiles.Tile;
+import com.bmhs.gametitle.gfx.utils.TileHandler;
 
 public class WorldGenTestScreen implements Screen {
 
@@ -31,6 +33,8 @@ public class WorldGenTestScreen implements Screen {
     private float effectiveViewportWidth, effectiveViewportHeight;
 
     private World world;
+
+    private PlayerCharacter player;
 
 
     public WorldGenTestScreen (final GameHandler game, final Screen parent) {
@@ -52,6 +56,10 @@ public class WorldGenTestScreen implements Screen {
         world = new World(100, 200);
 
         camera.update();
+
+        int playerTile = 2;
+
+        player = new PlayerCharacter(TileHandler.getTileHandler().getWorldTileArray().get(playerTile), 100, 200);
     }
 
     @Override
@@ -91,6 +99,8 @@ public class WorldGenTestScreen implements Screen {
                 game.batch.draw(world.getEnvironmentTile(r, c).getTexture(), c * Tile.ON_SCREEN_DEFAULT_WIDTH, r * Tile.ON_SCREEN_DEFAULT_HEIGHT);
             }
         }
+
+        game.batch.draw(player.getTile().getTexture(), player.getX(), player.getY(), 25, 51);
 
         game.batch.end();
 
@@ -136,6 +146,20 @@ public class WorldGenTestScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             camera.translate(20*camera.zoom, 0, 0);
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player.adjustY(10);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.adjustY(-10);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player.adjustX(10);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player.adjustX(-10);
+        }
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             camera.zoom += 0.2;
