@@ -46,17 +46,9 @@ public class NPCTestScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         game.batch.begin();
-//        for(int r = 0; r < Gdx.graphics.getHeight(); r += Tile.ON_SCREEN_DEFAULT_HEIGHT){
-//            for(int c = 0; c < Gdx.graphics.getWidth(); c += Tile.ON_SCREEN_DEFAULT_WIDTH){
-//                WorldTile tempTile = TileHandler.getTileHandler().getWorldTileArray().get(2);
-//
-//
-//                game.batch.draw(tempTile.getTexture(), c, r);
-//            }
-//        }
 
         for(int i = 0; i < numOfNPCs; i++){
-            NonPlayerCharacter tempChar = npcArray.get(0);
+            NonPlayerCharacter tempChar = npcArray.get(i);
             tempChar.tickTree();
             game.batch.draw(tempChar.getTile().getTexture(), tempChar.getX(), tempChar.getY());
         }
