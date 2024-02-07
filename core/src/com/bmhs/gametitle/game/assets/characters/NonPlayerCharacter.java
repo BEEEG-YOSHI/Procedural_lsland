@@ -21,7 +21,7 @@ public class NonPlayerCharacter extends Character {
         this.brainLog = name + " brain";
 
         Reader reader = null;
-        reader = Gdx.files.internal("btrees/npc.btree").reader();
+        reader = Gdx.files.internal("btrees/npc.btrees").reader();
         BehaviorTreeParser<NonPlayerCharacter> parser = new BehaviorTreeParser<>(BehaviorTreeParser.DEBUG_HIGH);
         behaviorTree = parser.parse(reader, this);
 
@@ -43,6 +43,13 @@ public class NonPlayerCharacter extends Character {
             System.out.println("where am I?");
         } else {
             System.out.println("I'm at " + getY() + " " + getX());
+        }
+    }
+
+    public void walk(){
+        if(Math.random() > .95){
+            adjustX(MathUtils.random(-10,10));
+            adjustY(MathUtils.random(-10,10));
         }
     }
 
